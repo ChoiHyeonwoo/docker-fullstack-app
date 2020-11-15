@@ -1,0 +1,29 @@
+# 언어 플랫폼 선택
+language: generic
+
+#관리자 권한
+sudo: required
+
+# 도커환경 구성
+services:
+  - docker
+
+# 테스트 도커이미지 빌드
+before_install:
+  - docker build -t hwchoi/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+# 테스트 도커이미지 실행
+script:
+  - docker run -e CI=ture hwchoi/react-test-app npm run test
+
+after_success:
+  - docker build -t superstar0619/docker-frontend ./frontend
+  - docker build -t superstar0619/docker-backend ./backend
+  - docker build -t superstar0619/docker-nginx ./nginx
+  
+  
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+
+  - docker push superstar0619/docker-frontend
+  - docker push superstar0619/docker-backend
+  - docker push superstar0619/docker-nginx
+  
