@@ -25,7 +25,7 @@ after_success:
   - docker push superstar0619/docker-frontend
   - docker push superstar0619/docker-backend
   - docker push superstar0619/docker-nginx
-
+#배포부분 작성
 deploy:
   provider: elasticbeanstalk
   region: "ap-northeast-2"
