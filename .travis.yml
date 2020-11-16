@@ -19,11 +19,22 @@ after_success:
   - docker build -t superstar0619/docker-frontend ./frontend
   - docker build -t superstar0619/docker-backend ./backend
   - docker build -t superstar0619/docker-nginx ./nginx
-  
-  
+    
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
   - docker push superstar0619/docker-frontend
   - docker push superstar0619/docker-backend
   - docker push superstar0619/docker-nginx
-  
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-fullstack-app"
+  env: "DockerFullstackApp-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-844556818888"
+  bucket_path: "docker-fullstack-app"
+  on:
+    branch: main
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
