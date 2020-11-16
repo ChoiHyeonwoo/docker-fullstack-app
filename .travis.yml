@@ -13,7 +13,7 @@ before_install:
   - docker build -t hwchoi/react-test-app -f ./frontend/Dockerfile.dev ./frontend
 # 테스트 도커이미지 실행
 script:
-  - docker run -e CI=ture hwchoi/react-test-app npm run test
+  - docker run -e CI=true hwchoi/react-test-app npm run test
 
 after_success:
   - docker build -t superstar0619/docker-frontend ./frontend
