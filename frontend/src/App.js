@@ -56,7 +56,7 @@ function App() {
             <li key={index}>{list.value} </li>
           ))}
           <br />
-            Hello world~!~!
+            Hello world:)
           <form className="example" onSubmit={submitHandler}>
             <input
               type="text"
